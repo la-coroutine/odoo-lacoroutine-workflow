@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!-- Sync Form View -->
+        <record model="ir.ui.view" id="view_lacoroutine_workflow_form">
+            <field name="name">lacoroutine.workflow.form</field>
+            <field name="model">lacoroutine.workflow</field>
+            <field name="arch" type="xml">
+                <form string="Manual Workflow" version="7.0" create="false" edit="false" delete="false">
+                    <button string="Launch Workflow" type="object" name="do_cron" class="oe_highlight"/>
+                </form>
+            </field>
+        </record>
+
+        <!-- Workflow Action -->
+        <record model="ir.actions.act_window" id="action_lacoroutine_workflow">
+            <field name="name">Workflow</field>
+            <field name="res_model">lacoroutine.workflow</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+        <menuitem name="La Coroutine" parent="account.menu_finance" id="menu_lacoroutine_root" sequence="10" groups="account.group_account_user" />
+        <menuitem name="Workflow" parent="menu_lacoroutine_root" id="menu_lacoroutine_workflow" action="action_lacoroutine_workflow" sequence="10"/>
+
+        <!-- Cron task daily -->
+        <record model="ir.cron" id="ir_cron_lacoroutine_workflow" forcecreate="True">
+            <field name="name">Perform La Coroutine workflow</field>
+            <field name="active" eval="True"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">6</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">lacoroutine.workflow</field>
+            <field name="function">do_cron</field>
+            <field eval="'(None,)'" name="args" />
+        </record>
+
+    </data>
+</openerp>

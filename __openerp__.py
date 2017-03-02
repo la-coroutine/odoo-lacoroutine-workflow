@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 { 
    'name': 'La Coroutine Workflow', 
-   'version': '1.0.0', 
+   'version': '1.0.2', 
    'summary': 'La Coroutine internal workflow',
    'description': """
 La Coroutine workflow for orders
@@ -14,6 +14,7 @@ A cron job that automatically process orders and generate invoices.""",
    'depends' : ['base', 'account'],
    'data': [ 
        'security/ir.model.access.csv',
+       'views/lacoroutine.xml',
    ], 
    'installable': True,
    'application': True,
